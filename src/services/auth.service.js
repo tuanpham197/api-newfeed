@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const KeyTokenService = require("./keyToken.service");
 const { createTokenPair } = require("../auth/authUtil");
 const { getInfoData } = require("../utils");
+const { BadRequestError } = require("../core/error.response");
 
 const Role = {
   AUTHOR: "author",
@@ -17,11 +18,12 @@ class AuthService {
       const user = await userModel.findOne({ email }).lean();
 
       if (user) {
-        return {
-          code: "400",
-          message: "user exists",
-          status: "error",
-        };
+        // return {
+        //   code: "400",
+        //   message: "user exists",
+        //   status: "error",
+        // };
+        throw new BadRequestError('user exists')
       }
 
       const passwordHash = await bcrypt.hash(password, 10);
