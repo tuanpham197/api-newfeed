@@ -3,7 +3,7 @@ const {Schema, model} = require('mongoose'); // Erase if already required
 const DOCUMENT_NAME = 'User'
 const COLLECTION_NAME = 'Users'
 // Declare the Schema of the Mongo model
-var userSchema = new Schema({
+const userSchema = new Schema({
     name:{
         type:String,
         required:true,
@@ -39,4 +39,6 @@ var userSchema = new Schema({
 });
 
 //Export the model
-module.exports = model(DOCUMENT_NAME, userSchema);
+module.exports = {
+    user: model(DOCUMENT_NAME, userSchema),
+}
