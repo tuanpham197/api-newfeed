@@ -1,6 +1,6 @@
 'use strict'
 
-const userModel = require("../models/user.model")
+const { user } = require("../models/user.model")
 
 const findByEmail = async ({email, select = {
     email: 1,
@@ -9,7 +9,7 @@ const findByEmail = async ({email, select = {
     status: 1,
     roles: 1
 }}) => {
-    return userModel.findOne({email}).select(select).lean()
+    return user.findOne({email}).select(select).lean()
 }
 
 module.exports = {
