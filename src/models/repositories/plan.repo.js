@@ -100,6 +100,19 @@ const getPlanById = async(planId) => {
     return await plan.findOne({_id: convertToObjectIdMongoDb(planId)}).lean()
 }
 
+const checkPlanByServer = async (plans) => {
+    return await Promise.all(plans.map(async plan => {
+        const foundPlan = await getPlanById(plan.planId)
+        if (foundPlan) {
+            return {
+                price: foundPlan.plan_price,
+                quantity: plan.quantity,
+                planId: plan.planId
+            }
+        }
+    }))
+} 
+
 module.exports = {
     findAllPlanDraft,
     publishPlanByOwner,
@@ -109,5 +122,6 @@ module.exports = {
     findAllPlans,
     findPlan,
     updatePlanById,
-    getPlanById
+    getPlanById,
+    checkPlanByServer
 }

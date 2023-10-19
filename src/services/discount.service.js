@@ -189,6 +189,7 @@ class DiscountService {
             totalOrder = plans.reduce((acc, plan) => {
                 return acc + (plan.quantity * plan.price)
             }, 0)
+            console.log(`[1]:: TOTAL ::`, plans);
             if (totalOrder < discount_min_order_value) {
                 throw new NotFoundError(`discount requires a minimum order value of ${discount_min_order_value}!`)
             }

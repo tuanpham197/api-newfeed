@@ -37,6 +37,9 @@ class CartService {
                 'cart_plans.$.quantity': quantity
             }
         }, options = {upsert: true, new: true}
+        console.log(`[2]:: query :: `, query);
+        console.log(`[2]:: updateSet :: `, updateSet);
+        console.log(`[2]:: options :: `, options);
 
         return await cart.findOneAndUpdate(query, updateSet, options)
     }
@@ -78,7 +81,7 @@ class CartService {
         // check plan
         const foundCart = await getPlanById(planId)
         if (!foundCart) throw new NotFoundError('error')
-
+        console.log(`[1]:: foundCart :: `, foundCart);
         if(foundCart.plan_owner.toString() !== owner_order_ids[0]?.userId) {
             if (!foundCart) throw new NotFoundError('product not belong to owner')
         }
@@ -86,7 +89,6 @@ class CartService {
         if(quantity === 0) {
             // delete
         }
-
         return await CartService.updateCustomerCartQuantity({
             customerId,
             plan: {
